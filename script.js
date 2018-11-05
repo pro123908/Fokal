@@ -2,18 +2,26 @@ const placeholders = {
   title: "Enter title",
   price: "Enter price",
   description: "Description...",
-  lat : "",
-  lng : ""
+  lat : "Enter Latitude",
+  lng : "Enter Longitude"
 };
 
-const formSubmitted = () => {
+function formSubmitted(e){
   var title = document.getElementById("title").value.trim();
   var price = document.getElementById("price").value.trim();
   var description = document.getElementById("description").value.trim();
+  var lat = document.getElementById("lat").value.trim();
+  var lng = document.getElementById("lng").value.trim();
+  var imageURL = document.getElementById('url').value.trim();
+  var category = document.getElementById('services').value.trim();
 
-  checkInput(title, "title");
-  checkInput(price, "price");
-  checkInput(description, "description");
+  var data = {
+    title,price,description,imageURL,category,latLng : {
+      latitude : lat,
+      longitude : lng
+    }
+  }
+  console.log(data);
 };
 
 const focused = field => {
@@ -50,9 +58,15 @@ const getImageURL = () => {
         document.getElementById("url").value = url;
         console.log("Done")
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        console.log(err);
+        alert("Error Occurred, check console for details")
+      })
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+      console.log(err);
+      alert("Error Occurred, check console for details")
+    })
 }
 
 var x, i, j, selElmnt, a, b, c;

@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns"
         crossorigin="anonymous">
     <link rel="stylesheet" href="./styles.css">
-    <link rel="icon" href="./favicon.ico">
     <title>Contact V4</title>
 </head>
 
@@ -17,7 +16,7 @@
     <div class="main">
         <div class="form-container">
             <h1 class="heading">Say Hello!</h1>
-            <form onsubmit="formSubmitted()" class="input-form" method="post">
+            <form class="input-form" method="post">
                 
                 <div class="input-container">
                     <label class="input-label" for="input">Upload Image</label>
@@ -26,7 +25,7 @@
 
                 <div class="input-container">
                     <label class="input-label" for="url">Image URL</label>
-                    <input type="text" name="url" class="input" id="url" placeholder="Enter URL" required onfocus="focused('url')" onblur="unFocused('title')">
+                    <input type="text" name="url" class="input" id="url" placeholder="Select Image to get URL" required onfocus="focused('url')" onblur="unFocused('url')" disabled>
                 </div>
 
                 <div class="input-container">
@@ -62,18 +61,18 @@
                 </div>
 
                 <div class="input-container">
-                    <label class="input-label" for="title">Lat</label>
-                    <input type="text" name="title" class="input" id="title" placeholder="Enter title" required onfocus="focused('title')" onblur="unFocused('title')">
+                    <label class="input-label" for="lat">Latitutde</label>
+                    <input type="text" name="lat" class="input" id="lat" placeholder="Enter Latitutde" required onfocus="focused('lat')" onblur="unFocused('lat')">
                 </div>
 
                 <div class="input-container">
-                    <label class="input-label" for="price"> Price </label>
-                    <input type="text" name="price" id="price" class="input" placeholder="Enter price" required onfocus="focused('price')"
-                        onblur="unFocused('price')">
+                    <label class="input-label" for="lng">Longitude</label>
+                    <input type="text" name="lng" id="lng" class="input" placeholder="Enter Longitude" required onfocus="focused('lng')"
+                        onblur="unFocused('lng')">
                 </div>
                 
                 <div class="submit-container">
-                    <button type="submit" class="submit-button">Submit &nbsp
+                    <button type="button" onclick="formSubmitted()" class="submit-button">Submit &nbsp
                         <i class="fas fa-long-arrow-alt-right submit-icon"></i>
                     </button>
                 </div>
