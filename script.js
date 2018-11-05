@@ -22,6 +22,7 @@ function formSubmitted(e){
     }
   }
   console.log(data);
+  
 };
 
 const focused = field => {
@@ -47,6 +48,12 @@ function getBase64(file) {
 
 
 const getImageURL = () => {
+
+   // For displaying name of the file which is selected when making post
+   var Pic = document.querySelector("input[name='image']").files[0];
+   
+   document.querySelector(".pic-name").innerHTML = Pic.name;
+
   console.log("Fetching")
   var imageElement = document.getElementById("image");
   var image = imageElement.files[0];
@@ -141,3 +148,10 @@ function closeAllSelect(elmnt) {
 /*if the user clicks anywhere outside the select box,
 then close all select boxes:*/
 document.addEventListener("click", closeAllSelect);
+
+function postPicSelected(container) {
+  // For displaying name of the file which is selected when making post
+  var Pic = document.querySelector("input[name='image']").files[0];
+  console.log(Pic.name);
+  document.querySelector(".pic-name").innerHTML = Pic.name;
+}

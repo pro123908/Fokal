@@ -15,14 +15,22 @@
 <body>
     <div class="main">
         <div class="form-container">
+               
+
             <h1 class="heading">Say Hello!</h1>
             <form class="input-form" method="post">
-                
-                <div class="input-container">
-                    <label class="input-label" for="input">Upload Image</label>
-                    <input type="file" name="image" class="input" id="image" onChange = "getImageURL()" required>
-                </div>
 
+                  
+<div class="input-container">
+        <label class="input-label" for="input">Upload Image</label>
+        <div class="upload-btn-wrapper">
+                <button class="btn">Upload a file</button>
+                <input type="file" name="image" class="input" id="image" onChange = "getImageURL()"  required>
+                <span class='pic-name'></span>
+              </div>
+</div>
+                
+             
                 <div class="input-container">
                     <label class="input-label" for="url">Image URL</label>
                     <input type="text" name="url" class="input" id="url" placeholder="Select Image to get URL" required onfocus="focused('url')" onblur="unFocused('url')" disabled>
