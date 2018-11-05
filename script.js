@@ -22,6 +22,14 @@ function formSubmitted(e){
     }
   }
   console.log(data);
+  axios.post('https://api.ideamatch.me/v1/street',data)
+    .then(res => {
+      alert("Record Added Successfully")
+    })
+    .catch(err => {
+      console.log(err);
+      alert("Error Occurred, check console for details");
+    })
 };
 
 const focused = field => {
