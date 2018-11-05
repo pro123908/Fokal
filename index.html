@@ -26,7 +26,7 @@
 
                 <div class="input-container">
                     <label class="input-label" for="url">Image URL</label>
-                    <input type="text" name="url" class="input" id="url" placeholder="Enter URL" required onfocus="focused('title')" onblur="unFocused('title')">
+                    <input type="text" name="url" class="input" id="url" placeholder="Enter URL" required onfocus="focused('url')" onblur="unFocused('title')">
                 </div>
 
                 <div class="input-container">
@@ -59,6 +59,17 @@
                         <option value="shake">Shake</option>
                         <option value="chaye">Chaye</option>
                     </select>
+                </div>
+
+                <div class="input-container">
+                    <label class="input-label" for="title">Lat</label>
+                    <input type="text" name="title" class="input" id="title" placeholder="Enter title" required onfocus="focused('title')" onblur="unFocused('title')">
+                </div>
+
+                <div class="input-container">
+                    <label class="input-label" for="price"> Price </label>
+                    <input type="text" name="price" id="price" class="input" placeholder="Enter price" required onfocus="focused('price')"
+                        onblur="unFocused('price')">
                 </div>
                 
                 <div class="submit-container">

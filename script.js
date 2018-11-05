@@ -1,7 +1,9 @@
 const placeholders = {
   title: "Enter title",
   price: "Enter price",
-  description: "Description..."
+  description: "Description...",
+  lat : "",
+  lng : ""
 };
 
 const formSubmitted = () => {
@@ -36,8 +38,6 @@ function getBase64(file) {
 }
 
 
-
-
 const getImageURL = () => {
   console.log("Fetching")
   var imageElement = document.getElementById("image");
@@ -52,6 +52,7 @@ const getImageURL = () => {
       })
       .catch(err => console.log(err))
     })
+    .catch(err => console.log(err))
 }
 
 var x, i, j, selElmnt, a, b, c;
