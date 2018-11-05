@@ -22,7 +22,14 @@ function formSubmitted(e){
     }
   }
   console.log(data);
-  
+  axios.post('https://api.ideamatch.me/v1/street',data)
+    .then(res => {
+      alert("Record Added Successfully")
+    })
+    .catch(err => {
+      console.log(err);
+      alert("Error Occurred, check console for details");
+    })
 };
 
 const focused = field => {
@@ -149,9 +156,3 @@ function closeAllSelect(elmnt) {
 then close all select boxes:*/
 document.addEventListener("click", closeAllSelect);
 
-function postPicSelected(container) {
-  // For displaying name of the file which is selected when making post
-  var Pic = document.querySelector("input[name='image']").files[0];
-  console.log(Pic.name);
-  document.querySelector(".pic-name").innerHTML = Pic.name;
-}
