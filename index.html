@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns"
         crossorigin="anonymous">
     <link rel="stylesheet" href="./styles.css">
-    <title>Contact V4</title>
+    <title>Fokal</title>
 </head>
 
 <body>
@@ -17,8 +17,8 @@
         <div class="form-container">
                
 
-            <h1 class="heading">Say Hello!</h1>
-            <form class="input-form" method="post">
+            <h1 class="heading">Fokal</h1>
+            <form class="input-form" method="post" onsubmit="return formSubmitted()">
 
                   
 <div class="input-container">
@@ -38,12 +38,12 @@
 
                 <div class="input-container">
                     <label class="input-label" for="title">Title</label>
-                    <input type="text" name="title" class="input" id="title" placeholder="Enter title" required onfocus="focused('title')" onblur="unFocused('title')">
+                    <input type="text" name="title" class="input" id="title" placeholder="Enter Title" required onfocus="focused('title')" onblur="unFocused('title')">
                 </div>
 
                 <div class="input-container">
                     <label class="input-label" for="price"> Price </label>
-                    <input type="number" name="price" id="price" class="input" placeholder="Enter price" required onfocus="focused('price')"
+                    <input type="number" name="price" id="price" class="input" placeholder="Enter Price" required onfocus="focused('price')"
                         onblur="unFocused('price')">
                 </div>
 
@@ -55,8 +55,9 @@
                 
                 <div class="input-container custom-select">
                     <label class="input-label" for="services"> Category</label>
-                    <select name="services" id="services" class="input" style="width:200px;">
-                        <option value="none">Choose Category</option>
+                    <span class="category-error"></span>
+                    <select name="services" id="services" class="input" style="width:200px;" >
+                        <option value="">Choose Category</option>
                         <option value="biryani">Biryani</option>
                         <option value="golGappy">Gol Gappy</option>
                         <option value="desi">Desi</option>
@@ -78,12 +79,33 @@
                     <input type="text" name="lng" id="lng" class="input" placeholder="Enter Longitude" required onfocus="focused('lng')"
                         onblur="unFocused('lng')">
                 </div>
-                
+                <!-- onclick="formSubmitted()" -->
                 <div class="submit-container">
-                    <button type="button" onclick="formSubmitted()" class="submit-button">Submit &nbsp
+                    <button type="submit"  class="submit-button">Submit &nbsp
                         <i class="fas fa-long-arrow-alt-right submit-icon"></i>
                     </button>
                 </div>
+
+                
+                <!-- The Modal -->
+<div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+          <div class="modal-header">
+            <span class="close">&times;</span>
+            <!-- <h2>Modal Header</h2> -->
+          </div>
+          <div class="modal-body">
+            <!-- <p>Some text in the Modal Body</p>
+            <p>Some other text...</p> -->
+          </div>
+          <div class="modal-footer">
+            <!-- <h3>Modal Footer</h3> -->
+          </div>
+        </div>
+      
+      </div>
             </form>
         </div>
     </div>

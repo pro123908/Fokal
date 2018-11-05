@@ -1,6 +1,6 @@
 const placeholders = {
-  title: "Enter title",
-  price: "Enter price",
+  title: "Enter Title",
+  price: "Enter Price",
   description: "Description...",
   lat : "Enter Latitude",
   lng : "Enter Longitude"
@@ -12,11 +12,18 @@ function formSubmitted(e){
   var description = document.getElementById("description").value.trim();
   var lat = document.getElementById("lat").value.trim();
   var lng = document.getElementById("lng").value.trim();
-  var imageURL = document.getElementById('url').value.trim();
+  var picturePath = document.getElementById('url').value.trim();
   var category = document.getElementById('services').value.trim();
+  
+  if(category ===  ""){
+    document.querySelector('.category-error').innerHTML = "Invalid Category";
+    return false;
+  }
+
+  document.querySelector('.category-error').innerHTML = "";
 
   var data = {
-    title,price,description,imageURL,category,latLng : {
+    title,price,description,picturePath,category,latLng : {
       latitude : lat,
       longitude : lng
     }
@@ -24,12 +31,20 @@ function formSubmitted(e){
   console.log(data);
   axios.post('https://api.ideamatch.me/v1/street',data)
     .then(res => {
-      alert("Record Added Successfully")
+      
+      openModal(1);
+      document.querySelector('.input-form').reset();
+      document.querySelector(".pic-name").innerHTML = ""
+      //alert("Record Added Successfully");
+
     })
     .catch(err => {
       console.log(err);
-      alert("Error Occurred, check console for details");
+      openModal();
+      // alert("Error Occurred, check console for details");
     })
+
+  return false;
 };
 
 const focused = field => {
@@ -70,7 +85,8 @@ const getImageURL = () => {
       .then(res => {
         var url = res.data.data.imagePath;
         document.getElementById("url").value = url;
-        console.log("Done")
+        console.log("Done");
+        
       })
       .catch(err => {
         console.log(err);
@@ -156,3 +172,42 @@ function closeAllSelect(elmnt) {
 then close all select boxes:*/
 document.addEventListener("click", closeAllSelect);
 
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// // Get the button that opens the modal
+// var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// // When the user clicks the button, open the modal 
+// btn.onclick = function() {
+//     modal.style.display = "block";
+// }
+
+function openModal(value){
+if(value === 1){
+  document.querySelector('.modal-body').innerHTML = "Record Added Successfully";
+}else{
+  document.querySelector('.modal-body').innerHTML = "Error Occcured (Check Console)";
+}
+
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+
+    
+
+    modal.style.display = "none";
+
+}
+
+// When the user clicks anywhere outside of the modal, close it
+// window.onclick = function(event) {
+//     if (event.target == modal) {
+//         modal.style.display = "none";
+//     }
+// }
