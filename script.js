@@ -26,14 +26,32 @@ const unFocused = field => {
   input.parentNode.style.borderBottom = "2px solid #d9d9d9";
 };
 
+function getBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
+}
+
+
+
+
 const getImageURL = () => {
+  console.log("Fetching")
   var imageElement = document.getElementById("image");
   var image = imageElement.files[0];
-  // axios.post('https://api.ideamatch.me/v1/upload',{image})
-  //   .then(res => {
-  //     document.getElementById("")
-  //   })
-  //   .catch(err => console.log(err))
+  getBase64(image)
+    .then(base64 => {
+      axios.post('https://api.ideamatch.me/v1/upload',{image : base64})
+      .then(res => {
+        var url = res.data.data.imagePath;
+        document.getElementById("url").value = url;
+        console.log("Done")
+      })
+      .catch(err => console.log(err))
+    })
 }
 
 var x, i, j, selElmnt, a, b, c;
