@@ -28,12 +28,24 @@ function formSubmitted(e){
       longitude : lng
     }
   }
+
+  
+
+  
   console.log(data);
   axios.post('https://api.ideamatch.me/v1/street',data)
     .then(res => {
       
       openModal(1);
-      document.querySelector('.input-form').reset();
+      // document.querySelector('.input-form').reset();
+      
+      document.getElementById("title").value=""
+  document.getElementById("price").value=""
+  document.getElementById("description").value=""
+  document.getElementById("lat").value=""
+  document.getElementById("lng").value=""
+  document.getElementById('url').value=""
+  
       document.querySelector(".pic-name").innerHTML = ""
       //alert("Record Added Successfully");
 
