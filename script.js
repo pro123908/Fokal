@@ -6,6 +6,16 @@ const placeholders = {
   lng : "Enter Longitude"
 };
 
+const downloadFile = () => {
+  var records = localStorage.getItem('records');
+  
+  var a = document.createElement("a");
+  var file = new Blob([records], {type: 'text/json'});
+  a.href = URL.createObjectURL(file);
+  a.download = 'records.json';
+  a.click();
+} 
+
 function formSubmitted(e){
   var title = document.getElementById("title").value.trim();
   var price = document.getElementById("price").value.trim();
@@ -28,21 +38,30 @@ function formSubmitted(e){
       longitude : lng
     }
   }
-  console.log(data);
-  axios.post('https://api.ideamatch.me/v1/street',data)
-    .then(res => {
-      
-      openModal(1);
-      document.querySelector('.input-form').reset();
-      document.querySelector(".pic-name").innerHTML = ""
-      //alert("Record Added Successfully");
 
-    })
-    .catch(err => {
-      console.log(err);
-      openModal();
-      // alert("Error Occurred, check console for details");
-    })
+  console.log(data);
+
+  var existingRecords = [];
+  if (localStorage.getItem("records") !== null) {
+    existingRecords = JSON.parse(localStorage.getItem("records"));
+  }
+  existingRecords.push(data);   
+  localStorage.setItem("records", JSON.stringify(existingRecords));
+
+  // axios.post('https://api.ideamatch.me/v1/street',data)
+  //   .then(res => {
+      
+  //     openModal(1);
+  //     document.querySelector('.input-form').reset();
+  //     document.querySelector(".pic-name").innerHTML = ""
+  //     //alert("Record Added Successfully");
+
+  //   })
+  //   .catch(err => {
+  //     console.log(err);
+  //     openModal();
+  //     // alert("Error Occurred, check console for details");
+  //   })
 
   return false;
 };
