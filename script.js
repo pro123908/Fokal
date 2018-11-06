@@ -51,7 +51,10 @@ function formSubmitted(e) {
     .then(res => {
       openModal(1);
       // document.querySelector('.input-form').reset();
-      document.querySelector(".pic-name").innerHTML = "";
+      // For displaying name of the file which is selected when making post
+  // var Pic = document.querySelector("input[name='image']").files[0];
+  
+  //   document.querySelector(".pic-name").innerHTML = '';
 
       document.getElementById("title").value = "";
       document.getElementById("price").value = "";
@@ -98,10 +101,7 @@ function getBase64(file) {
 }
 
 const getImageURL = () => {
-  // For displaying name of the file which is selected when making post
-  var Pic = document.querySelector("input[name='image']").files[0];
-
-  document.querySelector(".pic-name").innerHTML = Pic.name;
+  
 
   console.log("Fetching");
   var imageElement = document.getElementById("image");
