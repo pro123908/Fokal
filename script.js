@@ -2,69 +2,79 @@ const placeholders = {
   title: "Enter Title",
   price: "Enter Price",
   description: "Description...",
-  lat : "Enter Latitude",
-  lng : "Enter Longitude"
+  lat: "Enter Latitude",
+  lng: "Enter Longitude"
 };
 
 const downloadFile = () => {
-  var records = localStorage.getItem('records');
-  
-  var a = document.createElement("a");
-  var file = new Blob([records], {type: 'text/json'});
-  a.href = URL.createObjectURL(file);
-  a.download = 'records.json';
-  a.click();
-} 
+  var records = localStorage.getItem("records");
 
-function formSubmitted(e){
+  var a = document.createElement("a");
+  var file = new Blob([records], { type: "text/json" });
+  a.href = URL.createObjectURL(file);
+  a.download = "records.json";
+  a.click();
+};
+
+function formSubmitted(e) {
   var title = document.getElementById("title").value.trim();
   var price = document.getElementById("price").value.trim();
   var description = document.getElementById("description").value.trim();
   var lat = document.getElementById("lat").value.trim();
   var lng = document.getElementById("lng").value.trim();
-  var picturePath = document.getElementById('url').value.trim();
-  var category = document.getElementById('services').value.trim();
-  
-  if(category ===  ""){
-    document.querySelector('.category-error').innerHTML = "Invalid Category";
+  var picturePath = document.getElementById("url").value.trim();
+  var category = document.getElementById("services").value.trim();
+
+  if (category === "") {
+    document.querySelector(".category-error").innerHTML = "Invalid Category";
     return false;
   }
 
-  document.querySelector('.category-error').innerHTML = "";
+  document.querySelector(".category-error").innerHTML = "";
 
   var data = {
-    title,price,description,picturePath,category,latLng : {
-      latitude : lat,
-      longitude : lng
+    title,
+    price,
+    description,
+    picturePath,
+    category,
+    latLng: {
+      latitude: lat,
+      longitude: lng
     }
-  }
+  };
 
   console.log(data);
 
-  var existingRecords = [];
-  if (localStorage.getItem("records") !== null) {
-    existingRecords = JSON.parse(localStorage.getItem("records"));
-  }
-  existingRecords.push(data);   
-  localStorage.setItem("records", JSON.stringify(existingRecords));
+  axios
+    .post("https://api.ideamatch.me/v1/street", data)
+    .then(res => {
+      openModal(1);
+      // document.querySelector('.input-form').reset();
+      document.querySelector(".pic-name").innerHTML = "";
 
-  // axios.post('https://api.ideamatch.me/v1/street',data)
-  //   .then(res => {
-      
-  //     openModal(1);
-  //     document.querySelector('.input-form').reset();
-  //     document.querySelector(".pic-name").innerHTML = ""
-  //     //alert("Record Added Successfully");
+      document.getElementById("title").value = "";
+      document.getElementById("price").value = "";
+      document.getElementById("description").value = "";
+      document.getElementById("lat").value = "";
+      document.getElementById("lng").value = "";
+      document.getElementById("url").value = "";
 
-  //   })
-  //   .catch(err => {
-  //     console.log(err);
-  //     openModal();
-  //     // alert("Error Occurred, check console for details");
-  //   })
-
+      var existingRecords = [];
+      if (localStorage.getItem("records") !== null) {
+        existingRecords = JSON.parse(localStorage.getItem("records"));
+      }
+      existingRecords.push(data);
+      localStorage.setItem("records", JSON.stringify(existingRecords));
+      //alert("Record Added Successfully");
+    })
+    .catch(err => {
+      console.log(err);
+      openModal();
+      // alert("Error Occurred, check console for details");
+    });
   return false;
-};
+}
 
 const focused = field => {
   var input = document.getElementById(field);
@@ -87,36 +97,34 @@ function getBase64(file) {
   });
 }
 
-
 const getImageURL = () => {
+  // For displaying name of the file which is selected when making post
+  var Pic = document.querySelector("input[name='image']").files[0];
 
-   // For displaying name of the file which is selected when making post
-   var Pic = document.querySelector("input[name='image']").files[0];
-   
-   document.querySelector(".pic-name").innerHTML = Pic.name;
+  document.querySelector(".pic-name").innerHTML = Pic.name;
 
-  console.log("Fetching")
+  console.log("Fetching");
   var imageElement = document.getElementById("image");
   var image = imageElement.files[0];
   getBase64(image)
     .then(base64 => {
-      axios.post('https://api.ideamatch.me/v1/upload',{image : base64})
-      .then(res => {
-        var url = res.data.data.imagePath;
-        document.getElementById("url").value = url;
-        console.log("Done");
-        
-      })
-      .catch(err => {
-        console.log(err);
-        alert("Error Occurred, check console for details")
-      })
+      axios
+        .post("https://api.ideamatch.me/v1/upload", { image: base64 })
+        .then(res => {
+          var url = res.data.data.imagePath;
+          document.getElementById("url").value = url;
+          console.log("Done");
+        })
+        .catch(err => {
+          console.log(err);
+          alert("Error Occurred, check console for details");
+        });
     })
     .catch(err => {
       console.log(err);
-      alert("Error Occurred, check console for details")
-    })
-}
+      alert("Error Occurred, check console for details");
+    });
+};
 
 var x, i, j, selElmnt, a, b, c;
 /*look for any elements with the class "custom-select":*/
@@ -171,7 +179,10 @@ for (i = 0; i < x.length; i++) {
 function closeAllSelect(elmnt) {
   /*a function that will close all select boxes in the document,
     except the current select box:*/
-  var x,y,i,arrNo = [];
+  var x,
+    y,
+    i,
+    arrNo = [];
   x = document.getElementsByClassName("select-items");
   y = document.getElementsByClassName("select-selected");
   for (i = 0; i < y.length; i++) {
@@ -192,7 +203,7 @@ then close all select boxes:*/
 document.addEventListener("click", closeAllSelect);
 
 // Get the modal
-var modal = document.getElementById('myModal');
+var modal = document.getElementById("myModal");
 
 // // Get the button that opens the modal
 // var btn = document.getElementById("myBtn");
@@ -200,30 +211,31 @@ var modal = document.getElementById('myModal');
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
-// // When the user clicks the button, open the modal 
+// // When the user clicks the button, open the modal
 // btn.onclick = function() {
 //     modal.style.display = "block";
 // }
 
-function openModal(value){
-if(value === 1){
-  document.querySelector('.modal-body').innerHTML = "Record Added Successfully";
-}else{
-  document.querySelector('.modal-body').innerHTML = "Error Occcured (Check Console)";
-}
+function openModal(value) {
+  if (value === 1) {
+    document.querySelector(".modal-body").innerHTML =
+      "Record Added Successfully";
+  } else {
+    document.querySelector(".modal-body").innerHTML =
+      "Error Occcured (Check Console)";
+  }
 
   modal.style.display = "block";
 }
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
-    modal.style.display = "none";
-
-}
+  modal.style.display = "none";
+};
 
 //When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+};
