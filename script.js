@@ -47,7 +47,7 @@ function formSubmitted(e) {
   console.log(data);
 
   axios
-    .post("https://api.ideamatch.me/v1/street", data)
+    .post("https://api.ideamatch.me/v2/street", data)
     .then(res => {
       openModal(1);
       // document.querySelector('.input-form').reset();
@@ -109,7 +109,7 @@ const getImageURL = () => {
   getBase64(image)
     .then(base64 => {
       axios
-        .post("https://api.ideamatch.me/v1/upload", { image: base64 })
+        .post("https://api.ideamatch.me/v2/upload", { image: base64 })
         .then(res => {
           var url = res.data.data.imagePath;
           document.getElementById("url").value = url;
