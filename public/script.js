@@ -24,6 +24,7 @@ function formSubmitted(e) {
   var lng = document.getElementById("lng").value.trim();
   var picturePath = document.getElementById("url").value.trim();
   var category = document.getElementById("services").value.trim();
+ 
 
   if (category === "") {
     document.querySelector(".category-error").innerHTML = "Invalid Category";
@@ -41,7 +42,8 @@ function formSubmitted(e) {
     latLng: {
       latitude: lat,
       longitude: lng
-    }
+    },
+    active : true
   };
 
   console.log(data);
